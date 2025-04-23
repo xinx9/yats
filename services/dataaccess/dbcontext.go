@@ -15,12 +15,18 @@ type DbContext interface {
 	NewDbContext()
 }
 
+type BunContext struct {
+	Db *bun.DB
+}
+
 // need to create a a file named mariadbstore.go with the following properties for this to work.
-func NewDbContext() *bun.DB {
+func NewDbContext() (*BunContext, error) {
 	sqlconstr := fmt.Sprintf("%s:%s@/test", mariadbstore.Mariadbusername, mariadbstore.Mariadbpassword)
 	sqldb, err := sql.Open("mysql", sqlconstr)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return bun.NewDB(sqldb, mysqldialect.New())
+	bunCon := bun.NewDB(sqldb, mysqldialect.New())
+
+	return &BunContext{Db: bunCon}, nil
 }
