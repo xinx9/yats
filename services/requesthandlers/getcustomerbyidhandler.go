@@ -4,20 +4,16 @@ import (
 	"context"
 	dataaccess "yats/services/dataaccess"
 	models "yats/services/models"
+	requests "yats/services/requests"
 
 	"github.com/uptrace/bun"
 )
 
-type GetCustomerByIdRequestHandler struct {
-	db    *bun.DB
-	query GetCustomerByIdRequest
-}
-
-func (requestHandler GetCustomerByIdRequestHandler) GetCustomerById(dbContext *bun.DB, customerId int) (*models.Customer, error) {
+func GetCustomerById(dbContext *bun.DB, request requests.GetCustomerByIdRequest) (*models.Customer, error) {
 	customerModel := new(models.Customer)
 	customerDb := new(dataaccess.Customer)
 	//need to get access to bun.db to run select
-	err := requestHandler.db.NewSelect().Model(customerDb).Where("customerid = ?", customerId).Scan(context.Background())
+	err := dbContext.NewSelect().Model(customerDb).Where("customerid = ?", request.CustomerId).Scan(context.Background())
 
 	if err != nil {
 		return nil, err
