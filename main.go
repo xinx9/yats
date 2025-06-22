@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
-	customermodel "yats/services/models"
+	router "yats/app/controllers"
 )
 
 func main() {
-	var customer = customermodel.GetCustomerById(1)
+	//ctx := context.Background()
+	// var customer = Customer_Controller.GetCustomerById(ctx, 1)
+	// fmt.Printf("personId: %d, name: %s, phone: %d, email: %s ", customer.CustomerId, customer.Name, customer.Phone, customer.Email)
 
-	fmt.Printf("personId: %d, name: %s, phone: %d, email: %s ", customer.CustomerId, customer.Name, customer.Phone, customer.Email)
+	router.SetupServer()
 }

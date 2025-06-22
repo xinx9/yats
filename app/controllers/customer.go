@@ -1,18 +1,18 @@
-package customermodel
+package controllers
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
-	mariadbstore "yats/services"
+	mariadbstore "yats/app/models"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/mysqldialect"
 )
 
-type Customer struct {
-	bun.BaseModel `bun:"table:Customer,alias:customer"`
+type Customers struct {
+	bun.BaseModel `bun:"table:Customers,alias:customers"`
 	CustomerId    int64  `bun:"customerid,pk,autoincrement,type:integer"`
 	Name          string `bun:"name,notnull"`
 	Email         string `bun:"email"`
@@ -27,17 +27,28 @@ func init() {
 	sqldb, err := sql.Open("mysql", sqlconstr)
 	if err != nil {
 		panic(err)
+	} else {
+		fmt.Println("200 OK")
 	}
 	db = bun.NewDB(sqldb, mysqldialect.New())
 }
 
 // not sure if we want to return pointer to customer or dereference it.
-func GetCustomerById(customerId int) *Customer {
-	customer := new(Customer)
-	err := db.NewSelect().Model(customer).Where("customerid = ?", customerId).Scan(context.Background())
+func GetCustomerById(ctx context.Context, customerId int) *Customers {
+	customers := new(Customers)
+	err := db.NewSelect().Model(customers).Where("customerid = ?", customerId).Scan(ctx)
 	if err != nil {
-		// return some error message. idc.
+		panic(err)
 	}
 
-	return customer
+	return customers
+}
+
+func GetAllCustomers(ctx context.Context) []*Customers {
+	customers := make([]*Customers, 0)
+	err := db.NewSelect().Model(&customers).Scan(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return customers
 }
