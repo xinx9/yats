@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	mariadbstore "yats/app/models"
+	mariadbstore "yats/services/models"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/uptrace/bun"

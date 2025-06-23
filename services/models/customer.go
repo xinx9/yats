@@ -4,7 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	mariadbstore "yats/services"
+
+	//mariadbstore "yats/services"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/uptrace/bun"
@@ -23,7 +24,7 @@ var db *bun.DB = &bun.DB{}
 
 // need to create a a file named mariadbstore.go with the following properties for this to work.
 func init() {
-	sqlconstr := fmt.Sprintf("%s:%s@/test", mariadbstore.Mariadbusername, mariadbstore.Mariadbpassword)
+	sqlconstr := fmt.Sprintf("%s:%s@/test", Mariadbusername, Mariadbpassword)
 	sqldb, err := sql.Open("mysql", sqlconstr)
 	if err != nil {
 		panic(err)

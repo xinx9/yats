@@ -10,8 +10,12 @@ import (
 	user "yats/app/models"
 )
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 func SetupServer() {
-	fmt.Printf("Server starting on :8080\n")
+	fmt.Printf("Server starting on :4001\n")
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
@@ -24,13 +28,13 @@ func SetupServer() {
 		r.Get("/", userHandler.ListUsers)
 		r.Post("/", userHandler.CreateUser)
 		r.Get("/{id}", userHandler.GetUsers)
-		r.Put("/update/{id}", userHandler.UpdateUser)
-		r.Delete("/delete/{id}", userHandler.DeleteUser)
+		r.Put("/", userHandler.UpdateUser)
+		r.Delete("/{id}", userHandler.DeleteUser)
 
 	})
 
 	//r.Mount("/admin", UserRoute())
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":4001", r)
 }
 
 func UserRoute() http.Handler {

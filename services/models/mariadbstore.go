@@ -1,4 +1,4 @@
-package models
+package customermodel
 
 //mariadbstore.Mariadbusername, mariadbstore.Mariadbpassword
 
