@@ -1,4 +1,4 @@
-package customermodel
+package models
 
 import (
 	"context"
