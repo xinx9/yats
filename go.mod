@@ -2,10 +2,15 @@ module yats
 
 go 1.24.2
 
-require github.com/uptrace/bun v1.2.11
+require (
+	github.com/go-chi/chi/v5 v5.2.1
+	github.com/uptrace/bun v1.2.11
+)
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/ajg/form v1.5.1 // indirect
+	github.com/go-chi/render v1.0.3 // indirect
 	golang.org/x/mod v0.23.0 // indirect
 )
 

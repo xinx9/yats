@@ -1,7 +1,6 @@
 package dataaccess
 
 import (
-	// "context"
 	"database/sql"
 	"fmt"
 	mariadbstore "yats/services"
@@ -10,10 +9,6 @@ import (
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/mysqldialect"
 )
-
-type DbContext interface {
-	NewDbContext()
-}
 
 type BunContext struct {
 	Db *bun.DB
