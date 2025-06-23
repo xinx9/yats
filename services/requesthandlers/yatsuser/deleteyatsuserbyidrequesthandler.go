@@ -10,7 +10,7 @@ import (
 	"github.com/uptrace/bun"
 )
 
-func DeleteYatsUserById(request requests.DeleteYatsUserByIdRequest, db *bun.DB) (bool, error) {
+func DeleteYatsUserByIdRequestHandler(request requests.DeleteYatsUserByIdRequest, db *bun.DB) (bool, error) {
 	res, err := db.NewDelete().Model((*dataaccess.YatsUser)(nil)).Where("id = ?", request.Id).Exec(context.Background())
 	if err != nil {
 		return false, err

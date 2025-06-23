@@ -2,26 +2,30 @@ package requesthandlers
 
 import (
 	"context"
+	"errors"
 	dataaccess "yats/services/dataaccess"
-	models "yats/services/models"
 	requests "yats/services/requests/yatsuser"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/uptrace/bun"
 )
 
-func GetYatsUserById(request requests.GetYatsUserByIdRequest, db *bun.DB) (*models.YatsUser, error) {
+func CreateYatsUserRequestHandler(request requests.CreateYatsUserRequest, db *bun.DB) (int64, error) {
 	yatsuser := new(dataaccess.YatsUser)
-	err := db.NewSelect().Model(yatsuser).Where("id = ?", request.Id).Scan(context.Background())
+	yatsuser.FirstName = request.FirstName
+	yatsuser.LastName = request.LastName
+	yatsuser.UserName = request.UserName
+	res, err := db.NewInsert().Model(yatsuser).Exec(context.Background())
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 
-	yatsUserModel := new(models.YatsUser)
-	yatsUserModel.ID = yatsuser.ID
-	yatsUserModel.FirstName = yatsuser.FirstName
-	yatsUserModel.LastName = yatsuser.LastName
-	yatsUserModel.UserName = yatsuser.UserName
+	rowsAffected, _ := res.RowsAffected()
+	if rowsAffected < 1 {
+		return 0, errors.New("could not insert new YatsUser")
+	}
 
-	return yatsUserModel, nil
+	newRowId, _ := res.LastInsertId()
+
+	return newRowId, nil
 }
