@@ -20,6 +20,7 @@ func NewUserHandler(storage userGo.UserStorage) *UserHandler {
 }
 
 func (u UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	err := json.NewEncoder(w).Encode(u.storage.List())
 	if err != nil {
 		http.Error(w, "Internal error", http.StatusInternalServerError)
@@ -28,6 +29,7 @@ func (u UserHandler) ListUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func (u UserHandler) GetUsers(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	id := chi.URLParam(r, "id")
 	idNum, _ := strconv.Atoi(id)
 	user := u.storage.Get(idNum)
@@ -43,6 +45,7 @@ func (u UserHandler) GetUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func (u UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	data := &userGo.User{}
 
 	err := json.NewDecoder(r.Body).Decode(&data)
@@ -52,31 +55,18 @@ func (u UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newUser := new(userGo.User)
-	newUser.Name = data.Name
+	newUser.FirstName = data.FirstName
 	newUser.ID = int(len(u.storage.List()) + 1)
 	u.storage.Create(*newUser)
 
 	render.Status(r, http.StatusCreated)
 }
 
-// func (u userData) Bind(r *http.Request) error {
-// 	if u.User == nil {
-// 		return errors.New("missing required User field")
-// 	}
-
-// 	return nil
-// }
-
 func (u UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	var user userGo.User
-	err := json.NewDecoder(r.Body).Decode(&user)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	idnum, _ := strconv.Atoi(id)
-	updatedUser := u.storage.Update(idnum, user)
+	enableCors(&w)
+	data := &userGo.User{}
+	err := json.NewDecoder(r.Body).Decode(&data)
+	updatedUser := u.storage.Update(data.ID, data.FirstName)
 	if updatedUser == nil {
 		http.Error(w, "User not found", http.StatusNotFound)
 		return
@@ -89,6 +79,7 @@ func (u UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (u UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	id := chi.URLParam(r, "id")
 	idnum, _ := strconv.Atoi(id)
 	deletedUser := u.storage.Delete(idnum)
