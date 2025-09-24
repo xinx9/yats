@@ -43,4 +43,7 @@ dist/
 # Windows
 Thumbs.db
 
-*/mariadbstore.go
+.yalc/
+yalc.lock
+
+mariadbstore.go
