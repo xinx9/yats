@@ -3,8 +3,8 @@ package requesthandlers
 import (
 	"context"
 	"errors"
-	dataaccess "yats/services/dataaccess"
-	requests "yats/services/requests/yatsuser"
+	dataaccess "yats/backend/services/dataaccess"
+	requests "yats/backend/services/requests/yatsuser"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/uptrace/bun"

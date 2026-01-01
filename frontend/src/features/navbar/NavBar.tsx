@@ -3,7 +3,6 @@ import styles from "./NavBar.module.css"
 import logo from "/src/yatslogo.svg"
 
 export const NavBar = (): JSX.Element => {
-
     return (
         <div>
             <div id="logo" className={styles.Logo}>
