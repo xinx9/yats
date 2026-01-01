@@ -2,6 +2,8 @@ import type { JSX } from "react"
 import styles from "./NavBar.module.css"
 import logo from "/src/yatslogo.svg"
 
+const navItems = ["About", "Services", "Contributors"];
+
 export const NavBar = (): JSX.Element => {
     return (
         <div>
@@ -9,27 +11,11 @@ export const NavBar = (): JSX.Element => {
                 <img src={logo} alt="logo" />
             </div>
             <ul className={styles.NavBar}>
-                <li>
-                    <a
-                        href=""
-                    >
-                        About
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href=""
-                    >
-                        Services
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href=""
-                    >
-                        Contributors
-                    </a>
-                </li>
+                {navItems.map((item) => (
+                    <li>
+                        <a href=''>{item}</a>
+                    </li>
+                ))}
                 <li>
                     <button className={styles.YatsButton}>sign in</button>
                 </li>
