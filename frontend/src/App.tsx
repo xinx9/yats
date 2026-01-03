@@ -2,6 +2,7 @@ import "./App.css"
 import { Counter } from "./features/counter/Counter"
 import { Quotes } from "./features/quotes/Quotes"
 import { NavBar } from "./features/navbar/NavBar"
+import { About } from "./features/about/about"
 import logo from "./logo.svg"
 
 export const App = () => (
@@ -14,6 +15,7 @@ export const App = () => (
                 Edit <code>src/App.tsx</code> and save to reload.
             </p>
             <Quotes />
+            <About />
             <span>
                 <span>Learn </span>
                 <a

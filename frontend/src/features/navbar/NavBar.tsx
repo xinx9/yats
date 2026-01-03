@@ -3,6 +3,7 @@ import styles from "./NavBar.module.css"
 import logo from "/src/yatslogo.svg"
 
 const navItems = ["About", "Services", "Contributors"];
+const navAnchors = ["#AboutYats", "#Services", "#Contributors"];
 
 export const NavBar = (): JSX.Element => {
     return (
@@ -11,9 +12,9 @@ export const NavBar = (): JSX.Element => {
                 <img src={logo} alt="logo" />
             </div>
             <ul className={styles.NavBar}>
-                {navItems.map((item) => (
+                {navItems.map((item, index) => (
                     <li>
-                        <a href=''>{item}</a>
+                        <a href={navAnchors[index]}>{item}</a>
                     </li>
                 ))}
                 <li>
