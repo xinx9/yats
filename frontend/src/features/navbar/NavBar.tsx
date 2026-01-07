@@ -7,7 +7,7 @@ const navAnchors = ["#AboutYats", "#Services", "#Contributors"];
 
 export const NavBar = (): JSX.Element => {
     return (
-        <div>
+        <div className={styles.FixedTop}>
             <div id="logo" className={styles.Logo}>
                 <img src={logo} alt="logo" />
             </div>

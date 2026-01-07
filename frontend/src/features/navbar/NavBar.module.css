@@ -3,7 +3,14 @@
   margin: 0; 
   padding: 0;
   overflow: hidden;
-  float: right;
+  //float: right;
+}
+
+.FixedTop{
+  display: flex;
+  position: sticky;
+  top:0;
+  justify-content: space-between;
 }
 
 .NavBar li{
