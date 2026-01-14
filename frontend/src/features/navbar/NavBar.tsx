@@ -1,24 +1,28 @@
 import type { JSX } from "react"
-import styles from "./NavBar.module.css"
+import "./NavBar.scss"
 import logo from "/src/yatslogo.svg"
 
 const navItems = ["About", "Services", "Contributors"];
 const navAnchors = ["#AboutYats", "#Services", "#Contributors"];
 
+function logoOnClick() {
+    //alert("clicked");
+}
+
 export const NavBar = (): JSX.Element => {
     return (
-        <div className={styles.FixedTop}>
-            <div id="logo" className={styles.Logo}>
-                <img src={logo} alt="logo" />
+        <div className={"FixedTop"}>
+            <div id="logo" className={"LogoContainer"}>
+                <button className={"elevated"} onClick={logoOnClick}><img src={logo} alt="logo" /></button>
             </div>
-            <ul className={styles.NavBar}>
+            <ul className={"NavBar"}>
                 {navItems.map((item, index) => (
                     <li>
                         <a href={navAnchors[index]}>{item}</a>
                     </li>
                 ))}
                 <li>
-                    <button className={styles.YatsButton}>sign in</button>
+                    <button className={"ActionButton"}>sign in</button>
                 </li>
             </ul>
         </div>
