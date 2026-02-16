@@ -43,4 +43,4 @@ dist/
 # Windows
 Thumbs.db
 
-*/mariadbstore.go
+mariadbstore.go
