@@ -43,7 +43,4 @@ dist/
 # Windows
 Thumbs.db
 
-.yalc/
-yalc.lock
-
 mariadbstore.go
